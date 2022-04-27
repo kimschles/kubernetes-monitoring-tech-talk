@@ -1,0 +1,13 @@
+additionalPrometheusRules: 
+  - name: my-rule-file
+    groups:
+    - name: AllInstances
+      rules:
+      - alert: InstanceLowMemory
+        expr: :node_memory_MemAvailable_bytes:sum < 50668858390
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.host }}: memory low"
+          description: "{{ $labels.host }} has less than 50G memory available"
